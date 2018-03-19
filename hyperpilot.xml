@@ -2,10 +2,6 @@
 <rendertheme map-background="#ffffff" version="1" xmlns="http://opensciencemap.org/rendertheme" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://opensciencemap.org/rendertheme https://raw.githubusercontent.com/mapsforge/vtm/master/resources/rendertheme.xsd">
 
-    <!-- TODO cave -->
-    <!--TODO k="historic" v="ruins|castle|memorial|monument" -->
-    <!--k="historic" v="ruins|castle|memorial|monument|archaeological_site"-->
-
 
     <!-- land and sea -->
     <m e="way" k="natural" v="issea|sea">
@@ -68,11 +64,6 @@
             </m>
         </m>
 
-        <!-- buildings -->
-        <!--<m k="building" zoom-min="15">-->
-        <!--<area fill="#999999"/>-->
-        <!--</m>-->
-
         <!-- millitary -->
         <m k="landuse" v="military">
             <m zoom-min="11" zoom-max="12">
@@ -87,16 +78,17 @@
             </m>
         </m>
 
-        <m k="power">
-            <area fill="#bf34ba"/>
-        </m>
+        <!-- power plants -->
+        <!--<m k="power">-->
+        <!--<area fill="#bf34ba"/>-->
+        <!--</m>-->
     </m>
 
     <!-- airports -->
     <m k="aeroway" zoom-min="10">
         <area fill="#d39be3"/>
         <line stroke="#d39be3" width="20"/>
-        <m v="aerodrome|airport">
+        <m v="aerodrome">
             <caption dy="18" fill="#000000" k="name" priority="3" size="16" stroke="#ffffff" stroke-width="2" style="bold"/>
             <caption dy="-18" fill="#000000" k="ref" priority="3" size="16" stroke="#ffffff" stroke-width="2" style="bold"/>
             <symbol src="symbols_hyperpilot/airport2.svg"/>
@@ -144,8 +136,11 @@
 
 
     <!-- roads and paths -->
+    <style-text id="road" k="ref" priority="2" size="16" fill="#000000" stroke="#ffffff" stroke-width="4"/>
+    <style-text id="major-road" k="ref" priority="1" size="16" fill="#000000" stroke="#ffffff" stroke-width="4" style="bold"/>
+
     <m e="way" k="tunnel" v="~|no">
-        <m k="area" v="~|no">
+        <m k="area" v="~">
             <outline-layer id="4" stroke="#000000" width="4" cap="butt"/>
             <outline-layer id="3" stroke="#000000" width="3" cap="butt"/>
             <outline-layer id="2" stroke="#000000" width="2" cap="butt"/>
@@ -156,30 +151,36 @@
                 <!-- highway -->
                 <m v="motorway|trunk">
                     <line stroke="#e97446" width="5" outline="2" cap="butt"/>
+                    <m k="network|hknetwork" v="~" zoom-min="12">
+                        <text use="major-road"/>
+                    </m>
                 </m>
-                <m v="motorway_link|trunk_link" zoom-min="13">
+                <m v="motorway_link|trunk_link">
                     <line stroke="#e97446" width="3" outline="2" cap="butt"/>
                 </m>
 
                 <!-- primary -->
-                <m v="primary">
+                <m v="primary|primary_link">
                     <line stroke="#e8af5f" width="4" outline="2" cap="butt"/>
-                </m>
-                <m v="primary_link" zoom-min="13">
-                    <line stroke="#e8af5f" width="4" outline="2" cap="butt"/>
+                    <m k="network|hknetwork" v="~" zoom-min="12">
+                        <text use="major-road"/>
+                    </m>
                 </m>
 
                 <!-- secondary -->
-                <m v="secondary" zoom-min="10">
+                <m v="secondary|secondary_link" zoom-min="10">
                     <line stroke="#ebdeaa" width="4" outline="1" cap="butt"/>
-                </m>
-                <m v="secondary_link" zoom-min="13">
-                    <line stroke="#ebdeaa" width="4" outline="1" cap="butt"/>
+                    <m k="network|hknetwork" v="~" zoom-min="13">
+                        <text use="road"/>
+                    </m>
                 </m>
 
                 <!-- tertiary -->
                 <m v="tertiary|tertiary_link" zoom-min="11">
                     <line stroke="#f5f18a" width="3" outline="1l" cap="butt"/>
+                    <m k="network|hknetwork" v="~" zoom-min="13">
+                        <text use="road"/>
+                    </m>
                 </m>
                 <m v="unclassified" zoom-min="13">
                     <line stroke="#ffffff" width="3" outline="1l" cap="butt"/>
@@ -200,8 +201,9 @@
 
     <!-- country border -->
     <m e="way" k="admin_level" v="2">
-        <line stroke="#000000" stroke-width="6" fix="true"/>
-        <line stroke="#ffffff" stroke-width="3" fix="true"/>
+        <!--<line stroke="#000000" stroke-width="8" fix="true"/>-->
+        <!--<line stroke="#ffcc00" stroke-width="6" fix="true"/>-->
+        <line fix="true" stipple="50" stipple-stroke="#ffd93f" stroke="#921f1f" width="6"/>
     </m>
 
     <!-- railway -->
@@ -218,11 +220,11 @@
     </m>
 
     <!-- bus stops -->
-    <m k="highway">
+    <m k="highway" zoom-min="13">
         <m v="bus_stop">
             <symbol src="symbols_hyperpilot/dot_bus.svg"/>
             <m zoom-min="15">
-                <caption dy="20" fill="#0015b6" k="name" size="16" stroke="#ffffff" stroke-width="2" style="bold"/>
+                <caption dy="20" fill="#3d4bb5" k="name" size="16" stroke="#ffffff" stroke-width="2" style="bold"/>
             </m>
         </m>
     </m>
@@ -261,26 +263,32 @@
     </m>
 
     <!-- alpine huts -->
-    <m k="tourism" v="alpine_hut">
-        <symbol src="symbols_hyperpilot/alpinehut.svg"/>
+    <m k="tourism" v="alpine_hut" zoom-min="13">
+        <symbol src="symbols_hyperpilot/home-15.svg"/>
     </m>
 
-    <!-- places of worship -->
-    <!--<m k="building">-->
-    <!--<m k="amenity" v="place_of_worship">-->
-    <!--<area fill="#ff0000"/>-->
-    <!--<m k="religion" v="christian">-->
-    <!--<symbol src="symbols_hyperpilot/religious-christian-15.svg" symbol-scaling="size" symbol-height="8" symbol-width="8" priority="109" display="always"/>-->
-    <!--<area fill="#0000ff"/>-->
-    <!--&lt;!&ndash;<m k="building" v="~chapel">&ndash;&gt;-->
-    <!--&lt;!&ndash;</m>&ndash;&gt;-->
-    <!--</m>-->
-    <!--&lt;!&ndash;<m>&ndash;&gt;-->
-    <!--&lt;!&ndash;<symbol src="symbols_hyperpilot/place-of-worship-15.svg"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;</m>&ndash;&gt;-->
-    <!--</m>-->
-    <!--</m>-->
+    <!-- places of worship and churches -->
+    <m e="way" zoom-min="13" select="first">
+        <m k="building" select="first">
+            <m k="amenity" v="place_of_worship" select="first">
+                <m k="religion" v="christian">
+                    <symbol src="symbols_hyperpilot/religious-christian-15.svg"/>
+                </m>
+                <m>
+                    <symbol src="symbols_hyperpilot/place-of-worship-15.svg"/>
+                </m>
+            </m>
+        </m>
 
+        <m k="historic" v="ruins|castle">
+            <symbol src="symbols_hyperpilot/castle-15.svg"/>
+        </m>
+    </m>
+
+    <!-- caves -->
+    <m k="natural" v="cave_entrance" zoom-min="15">
+        <symbol src="symbols_hyperpilot/cave.svg"/>
+    </m>
 
     <!-- labels -->
     <!-- river labels -->
@@ -288,12 +296,22 @@
         <pathText fill="#5273b2" font-size="14" font-style="bold" k="name" stroke="#ffffff" stroke-width="2"/>
     </m>
 
+
     <!-- city labels -->
     <m k="place">
-        <m v="island" zoom-min="11">
+        <m v="island" zoom-min="13">
             <caption fill="#000000" k="name" priority="5" size="14" stroke="#ffffff" stroke-width="2" style="bold"/>
         </m>
-        <m v="locality">
+        <m v="locality" zoom-min="14">
+            <caption fill="#000000" k="name" priority="5" size="14" stroke="#ffffff" stroke-width="2" style="bold"/>
+        </m>
+        <m v="isolated_dwelling" zoom-min="14">
+            <caption fill="#000000" k="name" priority="5" size="14" stroke="#ffffff" stroke-width="2" style="bold"/>
+        </m>
+        <m v="hamlet" zoom-min="14">
+            <caption fill="#000000" k="name" priority="5" size="14" stroke="#ffffff" stroke-width="2" style="bold"/>
+        </m>
+        <m v="neighbourhood" zoom-min="14">
             <caption fill="#000000" k="name" priority="5" size="14" stroke="#ffffff" stroke-width="2" style="bold"/>
         </m>
         <m v="suburb">
@@ -303,7 +321,7 @@
             <caption fill="#000000" k="name" priority="3" size="17" stroke="#ffffff" stroke-width="2" style="bold"/>
         </m>
         <m v="town">
-            <caption fill="#000000" k="name" priority="2" size="19" stroke="#ffffff" stroke-width="2" style="bold"/>
+            <caption fill="#000000" k="name" priority="2" size="18" stroke="#ffffff" stroke-width="2" style="bold"/>
         </m>
         <m v="city">
             <caption fill="#000000" k="name" priority="1" size="19" stroke="#ffffff" stroke-width="2" style="bold"/>
