@@ -3,6 +3,11 @@
              xsi:schemaLocation="http://opensciencemap.org/rendertheme https://raw.githubusercontent.com/mapsforge/vtm/master/resources/rendertheme.xsd">
 
 
+    <style-line cap="butt" id="aeroway:runway" stroke="#d39be3" width="1.8" />
+    <style-area fade="15" fill="#f2f0eb" id="building" />
+    <style-line fade="15" id="building" stroke="#eeb7b6b3" use="fix" />
+
+
     <!-- land and sea -->
     <m e="way" k="natural" v="issea|sea">
         <area fill="#99badf" mesh="true"/>
@@ -85,20 +90,45 @@
     </m>
 
     <!-- airports -->
-    <m k="aeroway" zoom-min="10">
-        <area fill="#d39be3"/>
-        <line stroke="#d39be3" width="20"/>
-        <m v="aerodrome">
-            <caption dy="18" fill="#000000" k="name" priority="3" size="16" stroke="#ffffff" stroke-width="2" style="bold"/>
-            <caption dy="-18" fill="#000000" k="ref" priority="3" size="16" stroke="#ffffff" stroke-width="2" style="bold"/>
-            <symbol src="symbols_hyperpilot/airport2.svg"/>
+    <m k="aeroway">
+        <m closed="yes" v="aerodrome">
+            <m zoom-min="12">
+                <area fill="#ffd9ed" />
+            </m>
+            <m zoom-max="11">
+                <caption dy="18" fill="#000000" k="ref" priority="5" size="19" stroke="#ffffff"
+                    stroke-width="2.0" />
+            </m>
+            <m zoom-min="12">
+                <caption area-size="0.1" dy="18" fill="#000000" k="name" priority="5" size="19"
+                    stroke="#ffffff" stroke-width="2.0" />
+            </m>
+        </m>
+        <!-- A place where planes are parked -->
+        <m v="apron">
+            <area fill="#f0f0f0" />
+        </m>
+        <!-- Airport passenger building -->
+        <m v="terminal|hangar">
+            <area use="building" />
+            <line use="building" />
         </m>
     </m>
+
+    <!--<m k="aeroway" zoom-min="10">-->
+        <!--<area fill="#d39be3"/>-->
+        <!--<line stroke="#d39be3" width="0.8"/>-->
+        <!--<m v="aerodrome">-->
+            <!--<caption dy="18" fill="#000000" k="name" priority="3" size="16" stroke="#ffffff" stroke-width="2" style="bold"/>-->
+            <!--<caption dy="-18" fill="#000000" k="ref" priority="3" size="16" stroke="#ffffff" stroke-width="2" style="bold"/>-->
+            <!--<symbol src="symbols_hyperpilot/airport2.svg"/>-->
+        <!--</m>-->
+    <!--</m>-->
 
     <!-- lakes -->
     <m closed="yes" e="way" k="natural" v="water">
         <area fill="#99badf"/>
-        <caption area-size="0.4" fill="#5273b2" k="name" size="16" stroke="#ffffff" stroke-width="2" style="bold"/>
+        <caption area-size="0.4" fill="#5273b2" k="name" size="16" stroke="#ffffff" stroke-width="1" style="bold"/>
     </m>
     <m closed="yes" e="way" k="landuse" v="reservoir|basin">
         <area fill="#99badf"/>
@@ -107,28 +137,28 @@
 
     <!-- rivers -->
     <m e="way" k="waterway" v="ditch" zoom-min="13">
-        <line stroke="#99badf" stroke-width="2.4"/>
+        <line stroke="#99badf" stroke-width="1.2"/>
     </m>
     <m e="way" k="waterway" v="drain" zoom-min="13">
-        <line stroke="#99badf" stroke-width="2"/>
+        <line stroke="#99badf" stroke-width="1.0"/>
     </m>
     <m e="way" k="waterway" v="canal" zoom-min="10">
-        <line stroke="#99badf" stroke-width="3.6"/>
+        <line stroke="#99badf" stroke-width="1.8"/>
     </m>
     <m e="way" k="waterway" v="stream" zoom-min="13">
-        <line stroke="#99badf" stroke-width="2.4"/>
+        <line stroke="#99badf" stroke-width="1.2"/>
     </m>
     <m e="way" k="waterway" v="river" zoom-min="8">
-        <line stroke="#99badf" stroke-width="4.4"/>
+        <line stroke="#99badf" stroke-width="2.2"/>
     </m>
     <m closed="yes" e="way" k="waterway" v="riverbank">
         <area fill="#99badf"/>
     </m>
     <m closed="no" e="way" k="waterway" v="riverbank">
-        <line stroke="#99badf" stroke-width="4"/>
+        <line stroke="#99badf" stroke-width="2.0"/>
     </m>
     <m closed="no" e="way" k="natural" v="water">
-        <line stroke="#99badf" stroke-width="4"/>
+        <line stroke="#99badf" stroke-width="2"/>
     </m>
     <m closed="no" e="way" k="landuse" v="reservoir|basin">
         <line stroke="#99badf" stroke-width="0.8"/>
@@ -136,32 +166,32 @@
 
 
     <!-- roads and paths -->
-    <style-text id="road" k="ref" priority="2" size="16" fill="#000000" stroke="#ffffff" stroke-width="4"/>
-    <style-text id="major-road" k="ref" priority="1" size="16" fill="#000000" stroke="#ffffff" stroke-width="4" style="bold"/>
+    <style-text id="road" k="ref" priority="2" size="16" fill="#000000" stroke="#ffffff" stroke-width="2"/>
+    <style-text id="major-road" k="ref" priority="1" size="16" fill="#000000" stroke="#ffffff" stroke-width="2" style="bold"/>
 
     <m e="way" k="tunnel" v="~|no">
         <m k="area" v="~">
-            <outline-layer id="4" stroke="#000000" width="4" cap="butt"/>
-            <outline-layer id="3" stroke="#000000" width="3" cap="butt"/>
-            <outline-layer id="2" stroke="#000000" width="2" cap="butt"/>
-            <outline-layer id="1" stroke="#000000" width="1" cap="butt"/>
-            <outline-layer id="1l" stroke="#555555" width="1" cap="butt"/>
+            <outline-layer id="4" stroke="#000000" width="2.0" cap="butt"/>
+            <outline-layer id="3" stroke="#000000" width="1.5" cap="butt"/>
+            <outline-layer id="2" stroke="#000000" width="1.0" cap="butt"/>
+            <outline-layer id="1" stroke="#000000" width="0.5" cap="butt"/>
+            <outline-layer id="1l" stroke="#555555" width="0.5" cap="butt"/>
 
             <m k="highway" select="first">
                 <!-- highway -->
                 <m v="motorway|trunk">
-                    <line stroke="#e97446" width="5" outline="2" cap="butt"/>
+                    <line stroke="#e97446" width="2.5" outline="2" cap="butt"/>
                     <m k="network|hknetwork" v="~" zoom-min="12">
                         <text use="major-road"/>
                     </m>
                 </m>
                 <m v="motorway_link|trunk_link">
-                    <line stroke="#e97446" width="3" outline="2" cap="butt"/>
+                    <line stroke="#e97446" width="1.5" outline="2" cap="butt"/>
                 </m>
 
                 <!-- primary -->
                 <m v="primary|primary_link">
-                    <line stroke="#e8af5f" width="4" outline="2" cap="butt"/>
+                    <line stroke="#e8af5f" width="2.0" outline="2" cap="butt"/>
                     <m k="network|hknetwork" v="~" zoom-min="12">
                         <text use="major-road"/>
                     </m>
@@ -169,7 +199,7 @@
 
                 <!-- secondary -->
                 <m v="secondary|secondary_link" zoom-min="10">
-                    <line stroke="#ebdeaa" width="4" outline="1" cap="butt"/>
+                    <line stroke="#ebdeaa" width="2.0" outline="1" cap="butt"/>
                     <m k="network|hknetwork" v="~" zoom-min="13">
                         <text use="road"/>
                     </m>
@@ -177,23 +207,23 @@
 
                 <!-- tertiary -->
                 <m v="tertiary|tertiary_link" zoom-min="11">
-                    <line stroke="#f5f18a" width="3" outline="1l" cap="butt"/>
+                    <line stroke="#f5f18a" width="1.5" outline="1l" cap="butt"/>
                     <m k="network|hknetwork" v="~" zoom-min="13">
                         <text use="road"/>
                     </m>
                 </m>
                 <m v="unclassified" zoom-min="13">
-                    <line stroke="#ffffff" width="3" outline="1l" cap="butt"/>
+                    <line stroke="#ffffff" width="1.5" outline="1l" cap="butt"/>
                 </m>
 
                 <!-- smallest for vehicles -->
                 <m v="living_street|residential|service|services" zoom-min="13">
-                    <line stroke="#ffffff" width="2" outline="1l" cap="butt"/>
+                    <line stroke="#ffffff" width="1.0" outline="1l" cap="butt"/>
                 </m>
 
                 <!-- paths -->
                 <m zoom-min="15">
-                    <line stroke="#c9a573" width="1"/>
+                    <line stroke="#c9a573" width="0.5"/>
                 </m>
             </m>
         </m>
@@ -216,10 +246,10 @@
 
         <m k="tunnel" v="~|false|no">
             <m v="rail|light_rail" zoom-max="13">
-                <line cap="butt" fix="true" stroke="#000000" width="2" />
+                <line cap="butt" fix="true" stroke="#404040" width="1.5" />
             </m>
             <m v="rail|light_rail" zoom-min="14">
-                <line fix="true" fade="12" stipple="10" stipple-stroke="#cccccc" stroke="#000000" width="2"
+                <line fix="true" fade="12" stipple="10" stipple-stroke="#cccccc" stroke="#000000" width="2.0"
                     stipple-width="0.8" cap="butt" />
             </m>
         </m>
@@ -237,7 +267,7 @@
 
     <!-- ferries -->
     <m k="route" v="ferry" zoom-min="11">
-        <line dasharray="15,10" fix="true" stroke="#707070" width="4"/>
+        <line dasharray="15,10" fix="true" stroke="#707070" width="0.4"/>
     </m>
 
 
@@ -251,11 +281,21 @@
 
     <!-- power lines -->
     <m e="way" k="power" v="line">
-        <line dasharray="20,10" fix="true" stroke="#bf34ba" width="4"/>
+        <line dasharray="20,10" fix="true" stroke="#bf34ba" width="2.0"/>
     </m>
     <m e="way" k="power" v="minor_line">
-        <line dasharray="5,5" fix="true" stroke="#bf34ba" width="3"/>
+        <line dasharray="5,5" fix="true" stroke="#bf34ba" width="1.5"/>
     </m>
+
+    <m k="aeroway">
+        <m v="runway">
+            <line use="aeroway:runway" />
+        </m>
+        <m v="taxiway">
+            <line use="aeroway:runway" width="-0.8" />
+        </m>
+    </m>
+
 
     <!-- wind turbines -->
     <m e="node" k="generator:source" v="wind">
@@ -265,7 +305,7 @@
     <!-- cable cars -->
     <!-- TODO softer blue -->
     <m e="way" k="aerialway">
-        <line dasharray="20,10" fix="true" stroke="#3e4bc5" width="3"/>
+        <line dasharray="20,10" fix="true" stroke="#3e4bc5" width="1.5"/>
     </m>
 
     <!-- alpine huts -->
